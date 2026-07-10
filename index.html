@@ -72,6 +72,23 @@
         display: block;
       }
 
+      .card .photo-multi {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 8px;
+      }
+
+      .card .photo-multi img {
+        flex: 1;
+        min-width: 0;
+        height: 100%;
+        object-fit: contain;
+      }
+
       .card .photo-placeholder {
         width: 100%;
         aspect-ratio: 1 / 1;
@@ -172,26 +189,51 @@
       ];
 
       const PACKAGES = [
-        { nom: "Package JPG", prix: 145, image: "images/package-jpg.jpg" },
-        { nom: "Package Parfum Femme", prix: 185, image: "images/package-parfum-femme.jpg" },
-        { nom: "Package Rayhaan et Whiskey Toast", prix: 45, image: "images/package-rayhaan-whiskey-toast.jpg" },
+        {
+          nom: "Package JPG",
+          prix: 145,
+          images: ["images/jpg-le-male-elixir.jpg", "images/jpg-le-male.jpg"],
+        },
+        {
+          nom: "Package Parfum Femme",
+          prix: 185,
+          images: ["images/good-girl.jpg", "images/lattafa-yara-candy.jpg", "images/dont-be-shy.jpg"],
+        },
+        {
+          nom: "Package Rayhaan et Whiskey Toast",
+          prix: 45,
+          images: ["images/rayhaan-crimson.jpg", "images/whiskey-toast.jpg"],
+        },
       ];
 
       function carte(produit, estPackage) {
         const card = document.createElement("div");
         card.className = "card";
 
-        const img = document.createElement("img");
-        img.className = "photo";
-        img.src = produit.image;
-        img.alt = produit.nom;
-        img.onerror = () => {
-          const placeholder = document.createElement("div");
-          placeholder.className = "photo-placeholder";
-          placeholder.textContent = estPackage ? "🎁" : "🧴";
-          img.replaceWith(placeholder);
-        };
-        card.appendChild(img);
+        if (produit.images) {
+          const multi = document.createElement("div");
+          multi.className = "photo-multi";
+          produit.images.forEach((src) => {
+            const img = document.createElement("img");
+            img.src = src;
+            img.alt = produit.nom;
+            img.onerror = () => img.remove();
+            multi.appendChild(img);
+          });
+          card.appendChild(multi);
+        } else {
+          const img = document.createElement("img");
+          img.className = "photo";
+          img.src = produit.image;
+          img.alt = produit.nom;
+          img.onerror = () => {
+            const placeholder = document.createElement("div");
+            placeholder.className = "photo-placeholder";
+            placeholder.textContent = estPackage ? "🎁" : "🧴";
+            img.replaceWith(placeholder);
+          };
+          card.appendChild(img);
+        }
 
         const info = document.createElement("div");
         info.className = "info";
