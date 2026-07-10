@@ -4,180 +4,470 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fl.scents — Curated Fragrances</title>
+    <meta name="description" content="Fl.scents — parfums sélectionnés avec soin. Rayhaan, Jean Paul Gaultier, Carolina Herrera, Kilian, Lattafa et plus." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <style>
+      :root {
+        --noir: #0c0906;
+        --noir-2: #14100a;
+        --creme: #f4ecdd;
+        --creme-sourd: #b8ab8f;
+        --or: #d4af5e;
+        --or-clair: #ecd9a8;
+        --carte: rgba(255, 248, 235, 0.04);
+        --bordure: rgba(212, 175, 94, 0.16);
+        --serif: "Playfair Display", Georgia, "Times New Roman", serif;
+        --sans: "Inter", -apple-system, "Segoe UI", sans-serif;
+      }
+
       * { margin: 0; padding: 0; box-sizing: border-box; }
 
+      html { scroll-behavior: smooth; }
+
       body {
-        background: #f1e7d3;
-        color: #221b12;
-        font-family: Georgia, "Times New Roman", serif;
+        background: var(--noir);
+        color: var(--creme);
+        font-family: var(--sans);
+        font-weight: 300;
         min-height: 100vh;
+        overflow-x: hidden;
       }
 
-      header {
-        text-align: center;
-        padding: 48px 20px 28px;
-        border-bottom: 1px solid #d8c9a8;
+      ::selection { background: var(--or); color: var(--noir); }
+
+      /* ------- halos lumineux d'ambiance ------- */
+      .orbe {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(110px);
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.5;
+      }
+      .orbe-1 {
+        width: 55vw; height: 55vw;
+        top: -20vw; right: -18vw;
+        background: radial-gradient(circle, rgba(212, 175, 94, 0.20), transparent 65%);
+        animation: derive 16s ease-in-out infinite alternate;
+      }
+      .orbe-2 {
+        width: 45vw; height: 45vw;
+        bottom: -15vw; left: -15vw;
+        background: radial-gradient(circle, rgba(150, 84, 35, 0.16), transparent 65%);
+        animation: derive 20s ease-in-out infinite alternate-reverse;
+      }
+      @keyframes derive {
+        from { transform: translate(0, 0) scale(1); }
+        to { transform: translate(4vw, 3vw) scale(1.12); }
       }
 
-      header h1 {
-        font-size: 2.4rem;
-        letter-spacing: 2px;
-      }
+      main, nav, footer { position: relative; z-index: 1; }
 
-      header p {
-        margin-top: 10px;
-        font-style: italic;
-        color: #6b5b40;
-      }
-
-      .section-title {
-        text-align: center;
-        margin: 40px 0 8px;
-        font-size: 1.5rem;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 24px;
-        max-width: 1100px;
-        margin: 24px auto 40px;
-        padding: 0 20px;
-      }
-
-      .card {
-        background: #fffaf0;
-        border: 1px solid #d8c9a8;
-        border-radius: 12px;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0 2px 8px rgba(34, 27, 18, 0.08);
-        transition: transform 0.15s ease, box-shadow 0.15s ease;
-      }
-
-      .card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 6px 16px rgba(34, 27, 18, 0.15);
-      }
-
-      .card .photo {
-        width: 100%;
-        aspect-ratio: 1 / 1;
-        object-fit: contain;
-        background: #ffffff;
-        display: block;
-      }
-
-      .card .photo-multi {
-        width: 100%;
-        aspect-ratio: 1 / 1;
-        background: #ffffff;
+      /* ------- navigation ------- */
+      nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 50;
         display: flex;
         align-items: center;
-        gap: 4px;
-        padding: 8px;
+        justify-content: space-between;
+        padding: 18px clamp(20px, 5vw, 60px);
+        background: rgba(12, 9, 6, 0.55);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border-bottom: 1px solid rgba(212, 175, 94, 0.10);
       }
 
-      .card .photo-multi img {
+      .logo {
+        font-family: var(--serif);
+        font-size: 1.35rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--creme);
+        text-decoration: none;
+      }
+      .logo em { color: var(--or); font-style: normal; }
+
+      .nav-liens { display: flex; gap: clamp(16px, 3vw, 36px); }
+
+      .nav-liens a {
+        color: var(--creme-sourd);
+        text-decoration: none;
+        font-size: 0.8rem;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        transition: color 0.25s ease;
+      }
+      .nav-liens a:hover { color: var(--or-clair); }
+
+      /* ------- héro ------- */
+      .hero {
+        min-height: 92vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 120px 24px 60px;
+      }
+
+      .surtitre {
+        font-size: 0.72rem;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        color: var(--or);
+        margin-bottom: 26px;
+      }
+
+      .hero h1 {
+        font-family: var(--serif);
+        font-size: clamp(3.2rem, 10vw, 6.5rem);
+        font-weight: 500;
+        line-height: 1.05;
+        background: linear-gradient(120deg, var(--creme) 30%, var(--or-clair) 50%, var(--creme) 70%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        animation: reflet 7s linear infinite;
+      }
+      @keyframes reflet {
+        to { background-position: 200% center; }
+      }
+
+      .hero .tagline {
+        margin-top: 24px;
+        max-width: 480px;
+        color: var(--creme-sourd);
+        font-size: 1.02rem;
+        line-height: 1.7;
+      }
+
+      .hero-cta {
+        margin-top: 44px;
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 14px 34px;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      .btn-plein {
+        background: linear-gradient(120deg, var(--or), var(--or-clair));
+        color: var(--noir);
+        font-weight: 600;
+        box-shadow: 0 8px 28px rgba(212, 175, 94, 0.25);
+      }
+      .btn-plein:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(212, 175, 94, 0.4); }
+      .btn-ligne {
+        border: 1px solid var(--bordure);
+        color: var(--creme);
+      }
+      .btn-ligne:hover { border-color: var(--or); color: var(--or-clair); }
+
+      .fleche-scroll {
+        margin-top: 70px;
+        color: var(--or);
+        font-size: 1.4rem;
+        animation: flotte 2.2s ease-in-out infinite;
+        text-decoration: none;
+      }
+      @keyframes flotte {
+        0%, 100% { transform: translateY(0); opacity: 0.55; }
+        50% { transform: translateY(9px); opacity: 1; }
+      }
+
+      /* ------- sections ------- */
+      section { padding: 90px clamp(20px, 5vw, 60px); max-width: 1240px; margin: 0 auto; }
+
+      .en-tete-section { text-align: center; margin-bottom: 56px; }
+
+      .en-tete-section .surtitre { margin-bottom: 14px; }
+
+      .en-tete-section h2 {
+        font-family: var(--serif);
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 500;
+      }
+
+      .filet {
+        width: 64px; height: 1px;
+        margin: 22px auto 0;
+        background: linear-gradient(90deg, transparent, var(--or), transparent);
+      }
+
+      /* ------- grille produits ------- */
+      .grille {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(258px, 1fr));
+        gap: 28px;
+      }
+
+      .carte {
+        background: var(--carte);
+        border: 1px solid var(--bordure);
+        border-radius: 22px;
+        padding: 14px 14px 20px;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.3, 1), border-color 0.45s ease, box-shadow 0.45s ease;
+      }
+
+      .carte:hover {
+        transform: translateY(-8px);
+        border-color: rgba(212, 175, 94, 0.45);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 175, 94, 0.12), 0 10px 44px rgba(212, 175, 94, 0.10);
+      }
+
+      .cadre-photo {
+        position: relative;
+        border-radius: 14px;
+        overflow: hidden;
+        aspect-ratio: 4 / 5;
+        background: #faf7f1;
+      }
+
+      .cadre-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.3, 1);
+      }
+
+      .cadre-photo.multi {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        padding: 6px;
+      }
+      .cadre-photo.multi img {
         flex: 1;
         min-width: 0;
         height: 100%;
         object-fit: contain;
       }
 
-      .card .photo-placeholder {
-        width: 100%;
-        aspect-ratio: 1 / 1;
-        background: #e8dcc2;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 3rem;
+      .carte:hover .cadre-photo img { transform: scale(1.07); }
+      .carte:hover .cadre-photo.multi img { transform: scale(1.04); }
+
+      /* balayage lumineux sur la photo */
+      .cadre-photo::after {
+        content: "";
+        position: absolute;
+        top: -20%;
+        left: -80%;
+        width: 55%;
+        height: 140%;
+        background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+        transform: skewX(-18deg);
+        transition: left 0.9s cubic-bezier(0.2, 0.7, 0.3, 1);
+        pointer-events: none;
+      }
+      .carte:hover .cadre-photo::after { left: 130%; }
+
+      .badge {
+        position: absolute;
+        top: 12px; left: 12px;
+        z-index: 2;
+        background: rgba(12, 9, 6, 0.82);
+        color: var(--or-clair);
+        font-size: 0.62rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        padding: 6px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(212, 175, 94, 0.35);
+        backdrop-filter: blur(6px);
       }
 
-      .card .info {
-        padding: 16px;
+      .carte .infos {
+        padding: 18px 6px 0;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 6px;
         flex: 1;
       }
 
-      .card .nom {
-        font-size: 1.1rem;
-        font-weight: bold;
+      .carte .nom {
+        font-family: var(--serif);
+        font-size: 1.18rem;
+        font-weight: 500;
+        line-height: 1.3;
       }
 
-      .card .prix {
-        font-size: 1.3rem;
-        color: #8a6d3b;
-        font-weight: bold;
+      .carte .contenu-pack {
+        font-size: 0.8rem;
+        color: var(--creme-sourd);
+        line-height: 1.55;
       }
 
-      .card .badge {
-        align-self: flex-start;
-        background: #221b12;
-        color: #f1e7d3;
-        font-size: 0.7rem;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        padding: 3px 8px;
-        border-radius: 999px;
+      .carte .prix {
+        font-family: var(--serif);
+        font-size: 1.45rem;
+        color: var(--or);
+        margin-top: 2px;
       }
 
-      .card a.commander {
-        margin-top: auto;
+      .carte .commander {
+        margin-top: 16px;
         text-align: center;
-        background: #221b12;
-        color: #f1e7d3;
         text-decoration: none;
-        padding: 10px;
-        border-radius: 8px;
-        letter-spacing: 1px;
-        transition: background 0.15s ease;
+        color: var(--creme);
+        border: 1px solid var(--bordure);
+        border-radius: 999px;
+        padding: 12px;
+        font-size: 0.74rem;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
       }
 
-      .card a.commander:hover {
-        background: #4a3b26;
+      .carte .commander:hover {
+        background: linear-gradient(120deg, var(--or), var(--or-clair));
+        border-color: transparent;
+        color: var(--noir);
+        font-weight: 600;
       }
 
+      /* ------- apparition au défilement ------- */
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.3, 1);
+      }
+      .reveal.visible { opacity: 1; transform: none; }
+
+      html.instant .reveal { opacity: 1; transform: none; transition: none; }
+      html.instant { scroll-behavior: auto; }
+      html.instant .hero { min-height: 0; padding: 130px 24px 70px; }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation: none !important; transition: none !important; }
+        .reveal { opacity: 1; transform: none; }
+      }
+
+      /* ------- pied de page ------- */
       footer {
+        margin-top: 40px;
+        padding: 70px 24px 50px;
         text-align: center;
-        padding: 30px 20px 50px;
-        border-top: 1px solid #d8c9a8;
-        color: #6b5b40;
+        border-top: 1px solid rgba(212, 175, 94, 0.10);
+        background: var(--noir-2);
       }
 
-      footer a {
-        color: #221b12;
-        font-weight: bold;
+      footer .logo { font-size: 1.6rem; }
+
+      footer .contact {
+        margin-top: 18px;
+        color: var(--creme-sourd);
+        font-size: 0.95rem;
+      }
+
+      footer .contact a {
+        color: var(--or-clair);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(212, 175, 94, 0.35);
+        transition: color 0.25s ease, border-color 0.25s ease;
+      }
+      footer .contact a:hover { color: var(--or); border-color: var(--or); }
+
+      footer .copyright {
+        margin-top: 34px;
+        font-size: 0.72rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(184, 171, 143, 0.5);
+      }
+
+      @media (max-width: 560px) {
+        nav { padding: 14px 18px; }
+        .logo { font-size: 1.15rem; }
+        .nav-liens { gap: 14px; }
+        .nav-liens a { font-size: 0.68rem; letter-spacing: 1.5px; }
+        .nav-liens a:nth-child(3) { display: none; }
+        section { padding: 64px 18px; }
+        .grille { grid-template-columns: 1fr 1fr; gap: 14px; }
+        .carte { padding: 10px 10px 14px; border-radius: 16px; }
+        .carte .nom { font-size: 1rem; }
+        .carte .prix { font-size: 1.2rem; }
+        .carte .commander { padding: 10px; font-size: 0.66rem; letter-spacing: 1.5px; }
       }
     </style>
   </head>
   <body>
-    <header>
-      <h1>Fl.scents</h1>
-      <p>Curated Fragrances — Parfums sélectionnés avec soin</p>
-    </header>
+    <div class="orbe orbe-1"></div>
+    <div class="orbe orbe-2"></div>
 
-    <h2 class="section-title">Parfums</h2>
-    <div class="grid" id="parfums"></div>
+    <nav>
+      <a class="logo" href="#">Fl<em>.</em>scents</a>
+      <div class="nav-liens">
+        <a href="#parfums">Parfums</a>
+        <a href="#packages">Packages</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
 
-    <h2 class="section-title">Packages</h2>
-    <div class="grid" id="packages"></div>
+    <main>
+      <header class="hero">
+        <p class="surtitre">Maison de parfums · Collection 2026</p>
+        <h1>Fl.scents</h1>
+        <p class="tagline">
+          Des fragrances d'exception, sélectionnées avec soin.
+          Jean Paul Gaultier, Carolina Herrera, Kilian, Rayhaan, Lattafa — l'élégance à portée de main.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-plein" href="#parfums">Découvrir la collection</a>
+          <a class="btn btn-ligne" href="#packages">Voir les packages</a>
+        </div>
+        <a class="fleche-scroll" href="#parfums" aria-label="Défiler vers les parfums">↓</a>
+      </header>
 
-    <footer>
-      <p>
-        Pour commander, écrivez-nous :
+      <section id="parfums">
+        <div class="en-tete-section reveal">
+          <p class="surtitre">La collection</p>
+          <h2>Nos Parfums</h2>
+          <div class="filet"></div>
+        </div>
+        <div class="grille" id="grille-parfums"></div>
+      </section>
+
+      <section id="packages">
+        <div class="en-tete-section reveal">
+          <p class="surtitre">Offres exclusives</p>
+          <h2>Nos Packages</h2>
+          <div class="filet"></div>
+        </div>
+        <div class="grille" id="grille-packages"></div>
+      </section>
+    </main>
+
+    <footer id="contact">
+      <a class="logo" href="#">Fl<em>.</em>scents</a>
+      <p class="contact">
+        Pour commander ou toute question :<br />
         <a href="mailto:francisfregeau6@gmail.com">francisfregeau6@gmail.com</a>
       </p>
+      <p class="copyright">© 2026 Fl.scents — Curated Fragrances</p>
     </footer>
 
     <script>
+      if (location.search.indexOf("instant") !== -1) {
+        document.documentElement.classList.add("instant");
+      }
+
       const PARFUMS = [
         { nom: "Rayhaan Crimson", prix: 25, image: "images/rayhaan-crimson.jpg" },
         { nom: "JPG Le Mâle Élixir", prix: 90, image: "images/jpg-le-male-elixir.jpg" },
@@ -192,68 +482,73 @@
         {
           nom: "Package JPG",
           prix: 145,
+          contenu: "Le Mâle Élixir + Le Mâle",
           images: ["images/jpg-le-male-elixir.jpg", "images/jpg-le-male.jpg"],
         },
         {
           nom: "Package Parfum Femme",
           prix: 185,
+          contenu: "Good Girl + Yara Candy + Don't Be Shy",
           images: ["images/good-girl.jpg", "images/lattafa-yara-candy.jpg", "images/dont-be-shy.jpg"],
         },
         {
-          nom: "Package Rayhaan et Whiskey Toast",
+          nom: "Package Rayhaan & Whiskey Toast",
           prix: 45,
+          contenu: "Rayhaan Crimson + Whiskey Toast",
           images: ["images/rayhaan-crimson.jpg", "images/whiskey-toast.jpg"],
         },
       ];
 
-      function carte(produit, estPackage) {
-        const card = document.createElement("div");
-        card.className = "card";
+      function carte(produit, index) {
+        const estPackage = Boolean(produit.images);
+        const card = document.createElement("article");
+        card.className = "carte reveal";
+        card.style.transitionDelay = (index % 4) * 90 + "ms";
 
-        if (produit.images) {
-          const multi = document.createElement("div");
-          multi.className = "photo-multi";
-          produit.images.forEach((src) => {
-            const img = document.createElement("img");
-            img.src = src;
-            img.alt = produit.nom;
-            img.onerror = () => img.remove();
-            multi.appendChild(img);
-          });
-          card.appendChild(multi);
-        } else {
-          const img = document.createElement("img");
-          img.className = "photo";
-          img.src = produit.image;
-          img.alt = produit.nom;
-          img.onerror = () => {
-            const placeholder = document.createElement("div");
-            placeholder.className = "photo-placeholder";
-            placeholder.textContent = estPackage ? "🎁" : "🧴";
-            img.replaceWith(placeholder);
-          };
-          card.appendChild(img);
-        }
-
-        const info = document.createElement("div");
-        info.className = "info";
+        const cadre = document.createElement("div");
+        cadre.className = "cadre-photo" + (estPackage ? " multi" : "");
 
         if (estPackage) {
           const badge = document.createElement("span");
           badge.className = "badge";
-          badge.textContent = "Package";
-          info.appendChild(badge);
+          badge.textContent = "Ensemble";
+          cadre.appendChild(badge);
+          produit.images.forEach((src) => {
+            const img = document.createElement("img");
+            img.src = src;
+            img.alt = produit.nom;
+            img.loading = "lazy";
+            img.onerror = () => img.remove();
+            cadre.appendChild(img);
+          });
+        } else {
+          const img = document.createElement("img");
+          img.src = produit.image;
+          img.alt = produit.nom;
+          img.loading = "lazy";
+          cadre.appendChild(img);
         }
+        card.appendChild(cadre);
 
-        const nom = document.createElement("div");
+        const infos = document.createElement("div");
+        infos.className = "infos";
+
+        const nom = document.createElement("h3");
         nom.className = "nom";
         nom.textContent = produit.nom;
-        info.appendChild(nom);
+        infos.appendChild(nom);
 
-        const prix = document.createElement("div");
+        if (produit.contenu) {
+          const contenu = document.createElement("p");
+          contenu.className = "contenu-pack";
+          contenu.textContent = produit.contenu;
+          infos.appendChild(contenu);
+        }
+
+        const prix = document.createElement("p");
         prix.className = "prix";
         prix.textContent = produit.prix + " $";
-        info.appendChild(prix);
+        infos.appendChild(prix);
 
         const lien = document.createElement("a");
         lien.className = "commander";
@@ -261,17 +556,35 @@
           "mailto:francisfregeau6@gmail.com?subject=" +
           encodeURIComponent("Commande — " + produit.nom + " (" + produit.prix + " $)");
         lien.textContent = "Commander";
-        info.appendChild(lien);
+        infos.appendChild(lien);
 
-        card.appendChild(info);
+        card.appendChild(infos);
         return card;
       }
 
-      const grilleParfums = document.getElementById("parfums");
-      PARFUMS.forEach((p) => grilleParfums.appendChild(carte(p, false)));
+      const grilleParfums = document.getElementById("grille-parfums");
+      PARFUMS.forEach((p, i) => grilleParfums.appendChild(carte(p, i)));
 
-      const grillePackages = document.getElementById("packages");
-      PACKAGES.forEach((p) => grillePackages.appendChild(carte(p, true)));
+      const grillePackages = document.getElementById("grille-packages");
+      PACKAGES.forEach((p, i) => grillePackages.appendChild(carte(p, i)));
+
+      const observateur = new IntersectionObserver(
+        (entrees) => {
+          entrees.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              observateur.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+      document.querySelectorAll(".reveal").forEach((el) => observateur.observe(el));
+
+      // filet de sécurité : tout afficher même si l'observation échoue
+      setTimeout(() => {
+        document.querySelectorAll(".reveal:not(.visible)").forEach((el) => el.classList.add("visible"));
+      }, 1500);
     </script>
   </body>
 </html>
