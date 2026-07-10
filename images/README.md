@@ -1,15 +1,13 @@
-Photos des produits. Noms de fichiers attendus par le site :
+Photos des produits — toutes en place ✅
 
-Déjà en place :
-- rayhaan-crimson.jpg ✅
-- jpg-le-male-elixir.jpg ✅
-- good-girl.jpg ✅
-- lattafa-yara-candy.jpg ✅
-- dont-be-shy.jpg ✅
-
-Photos manquantes (dépose-les ici avec ces noms exacts) :
+- rayhaan-crimson.jpg
+- jpg-le-male-elixir.jpg
 - jpg-le-male.jpg
 - whiskey-toast.jpg
-- package-jpg.jpg
-- package-parfum-femme.jpg
-- package-rayhaan-whiskey-toast.jpg
+- good-girl.jpg
+- lattafa-yara-candy.jpg
+- dont-be-shy.jpg
+
+Les packages réutilisent automatiquement ces photos (pas besoin
+d'images séparées). Pour remplacer une photo, dépose simplement un
+nouveau fichier avec le même nom.
