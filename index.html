@@ -4,9 +4,274 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fl.scents — Curated Fragrances</title>
-    <script type="module" crossorigin src="./assets/index-03a6GRX-.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        background: #f1e7d3;
+        color: #221b12;
+        font-family: Georgia, "Times New Roman", serif;
+        min-height: 100vh;
+      }
+
+      header {
+        text-align: center;
+        padding: 48px 20px 28px;
+        border-bottom: 1px solid #d8c9a8;
+      }
+
+      header h1 {
+        font-size: 2.4rem;
+        letter-spacing: 2px;
+      }
+
+      header p {
+        margin-top: 10px;
+        font-style: italic;
+        color: #6b5b40;
+      }
+
+      .section-title {
+        text-align: center;
+        margin: 40px 0 8px;
+        font-size: 1.5rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 24px;
+        max-width: 1100px;
+        margin: 24px auto 40px;
+        padding: 0 20px;
+      }
+
+      .card {
+        background: #fffaf0;
+        border: 1px solid #d8c9a8;
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 2px 8px rgba(34, 27, 18, 0.08);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 16px rgba(34, 27, 18, 0.15);
+      }
+
+      .card .photo {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: contain;
+        background: #ffffff;
+        display: block;
+      }
+
+      .card .photo-multi {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 8px;
+      }
+
+      .card .photo-multi img {
+        flex: 1;
+        min-width: 0;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .card .photo-placeholder {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        background: #e8dcc2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+      }
+
+      .card .info {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
+      }
+
+      .card .nom {
+        font-size: 1.1rem;
+        font-weight: bold;
+      }
+
+      .card .prix {
+        font-size: 1.3rem;
+        color: #8a6d3b;
+        font-weight: bold;
+      }
+
+      .card .badge {
+        align-self: flex-start;
+        background: #221b12;
+        color: #f1e7d3;
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 3px 8px;
+        border-radius: 999px;
+      }
+
+      .card a.commander {
+        margin-top: auto;
+        text-align: center;
+        background: #221b12;
+        color: #f1e7d3;
+        text-decoration: none;
+        padding: 10px;
+        border-radius: 8px;
+        letter-spacing: 1px;
+        transition: background 0.15s ease;
+      }
+
+      .card a.commander:hover {
+        background: #4a3b26;
+      }
+
+      footer {
+        text-align: center;
+        padding: 30px 20px 50px;
+        border-top: 1px solid #d8c9a8;
+        color: #6b5b40;
+      }
+
+      footer a {
+        color: #221b12;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <header>
+      <h1>Fl.scents</h1>
+      <p>Curated Fragrances — Parfums sélectionnés avec soin</p>
+    </header>
+
+    <h2 class="section-title">Parfums</h2>
+    <div class="grid" id="parfums"></div>
+
+    <h2 class="section-title">Packages</h2>
+    <div class="grid" id="packages"></div>
+
+    <footer>
+      <p>
+        Pour commander, écrivez-nous :
+        <a href="mailto:francisfregeau6@gmail.com">francisfregeau6@gmail.com</a>
+      </p>
+    </footer>
+
+    <script>
+      const PARFUMS = [
+        { nom: "Rayhaan Crimson", prix: 25, image: "images/rayhaan-crimson.jpg" },
+        { nom: "JPG Le Mâle Élixir", prix: 90, image: "images/jpg-le-male-elixir.jpg" },
+        { nom: "JPG Le Mâle", prix: 80, image: "images/jpg-le-male.jpg" },
+        { nom: "Whiskey Toast", prix: 60, image: "images/whiskey-toast.jpg" },
+        { nom: "Good Girl", prix: 90, image: "images/good-girl.jpg" },
+        { nom: "Lattafa Yara Candy", prix: 10, image: "images/lattafa-yara-candy.jpg" },
+        { nom: "Don't Be Shy", prix: 50, image: "images/dont-be-shy.jpg" },
+      ];
+
+      const PACKAGES = [
+        {
+          nom: "Package JPG",
+          prix: 145,
+          images: ["images/jpg-le-male-elixir.jpg", "images/jpg-le-male.jpg"],
+        },
+        {
+          nom: "Package Parfum Femme",
+          prix: 185,
+          images: ["images/good-girl.jpg", "images/lattafa-yara-candy.jpg", "images/dont-be-shy.jpg"],
+        },
+        {
+          nom: "Package Rayhaan et Whiskey Toast",
+          prix: 45,
+          images: ["images/rayhaan-crimson.jpg", "images/whiskey-toast.jpg"],
+        },
+      ];
+
+      function carte(produit, estPackage) {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        if (produit.images) {
+          const multi = document.createElement("div");
+          multi.className = "photo-multi";
+          produit.images.forEach((src) => {
+            const img = document.createElement("img");
+            img.src = src;
+            img.alt = produit.nom;
+            img.onerror = () => img.remove();
+            multi.appendChild(img);
+          });
+          card.appendChild(multi);
+        } else {
+          const img = document.createElement("img");
+          img.className = "photo";
+          img.src = produit.image;
+          img.alt = produit.nom;
+          img.onerror = () => {
+            const placeholder = document.createElement("div");
+            placeholder.className = "photo-placeholder";
+            placeholder.textContent = estPackage ? "🎁" : "🧴";
+            img.replaceWith(placeholder);
+          };
+          card.appendChild(img);
+        }
+
+        const info = document.createElement("div");
+        info.className = "info";
+
+        if (estPackage) {
+          const badge = document.createElement("span");
+          badge.className = "badge";
+          badge.textContent = "Package";
+          info.appendChild(badge);
+        }
+
+        const nom = document.createElement("div");
+        nom.className = "nom";
+        nom.textContent = produit.nom;
+        info.appendChild(nom);
+
+        const prix = document.createElement("div");
+        prix.className = "prix";
+        prix.textContent = produit.prix + " $";
+        info.appendChild(prix);
+
+        const lien = document.createElement("a");
+        lien.className = "commander";
+        lien.href =
+          "mailto:francisfregeau6@gmail.com?subject=" +
+          encodeURIComponent("Commande — " + produit.nom + " (" + produit.prix + " $)");
+        lien.textContent = "Commander";
+        info.appendChild(lien);
+
+        card.appendChild(info);
+        return card;
+      }
+
+      const grilleParfums = document.getElementById("parfums");
+      PARFUMS.forEach((p) => grilleParfums.appendChild(carte(p, false)));
+
+      const grillePackages = document.getElementById("packages");
+      PACKAGES.forEach((p) => grillePackages.appendChild(carte(p, true)));
+    </script>
   </body>
 </html>
